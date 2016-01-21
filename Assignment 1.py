@@ -3,16 +3,16 @@ import sys
 
 vertices = {}
 
+"Define a class for nodes"
 class node():
 
     def __init__(self, id):
         self.id = id
-        self.adjacent = {}
+        self.adjacent = {} 
 
+    "Function to set the adjacent nodes for vertex in the form of a dictionary"
     def set_adjacent(self,set):
         for item in set:
-            # raw_input()
-            # print item
             if item[0] in vertices.keys():
                 new_node = vertices[item[0]]
             else:
@@ -21,13 +21,9 @@ class node():
 
             if new_node not in self.adjacent.keys():
                 self.adjacent[new_node] = item[1]
-        # for i in self.adjacent:
-        #     print i.id, self.adjacent[i]
 
 
-
-
-
+"Function to make nodes for the graph"
 def make_node(dict):
     for keys in dict.keys():
         if keys not in vertices.keys():
@@ -39,7 +35,7 @@ def make_node(dict):
             curr_node = vertices[keys]
             curr_node.set_adjacent(dict[curr_node.id])
 
-## Read distance matrix and return a dictionary like {city1:(city2, distance)}
+"Read distance matrix and return a dictionary like {city1:(city2, distance)}"
 
 def readfile(link):
     dict = defaultdict(list)
@@ -56,13 +52,12 @@ if __name__ == "__main__":
     ar = readfile("distance_matrix.txt")
     print ar
     make_node(ar)
-    for k in vertices.keys():
-        # print k
-        print vertices[k].id
-        for items in vertices[k].adjacent.keys():
-            raw_input()
-
-            print items.id, vertices[k].adjacent[items]
+    # for k in vertices.keys():
+    #     # print k
+    #     print vertices[k].id
+    #     for items in vertices[k].adjacent.keys():
+    #         raw_input()
+    #         print items.id, vertices[k].adjacent[items]
     # arad = vertices["Arad"]
     # for items in arad.adjacent.keys():
     #     print items.id,arad.adjacent[items]
