@@ -2,7 +2,6 @@
 
 "@authors = Prateek Bhat and Sanjana Agarwal"
 
-
 from collections import defaultdict
 import sys
 import Queue
@@ -67,6 +66,8 @@ def bfs(vertices, start, goal):
                 print "The path is: ",
                 for n in path+[items]:
                     print n.id,",",
+                    print n.id,
+
                 print "\nThe distance is: ", dist+vertex.adjacent[items]
             else:
                 q.put((items,path+[items],dist+vertex.adjacent[items]))
@@ -77,5 +78,9 @@ if __name__ == "__main__":
     print ar
     make_node(ar)
     bfs(vertices,"arad", "bucharest")
+
+    # for items in arad.adjacent.keys():
+    #     print items.id,arad.adjacent[items]
+
 
 
