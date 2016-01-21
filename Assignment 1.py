@@ -1,6 +1,4 @@
 from collections import defaultdict
-import networkx as nx
-import matplotlib.pyplot as plt
 import sys
 
 vertices = {}
