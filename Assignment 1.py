@@ -1,6 +1,6 @@
 """Search Methods to find the paths form source to destination"""
 
-"@authors = Prateek Bhat and Sanjana Agarwal"
+"@@authors = Prateek Bhat and Sanjana Agarwal"
 
 from collections import defaultdict
 import sys
