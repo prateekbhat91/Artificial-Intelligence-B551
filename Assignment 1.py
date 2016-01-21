@@ -61,21 +61,23 @@ def bfs(vertices, start, goal):
 
     while not q.empty():
         (vertex,path,dist) = q.get()
+        # for items in path:
+        #     print items.id
         for items in list(set(vertex.adjacent.keys()) - set(path)):
             if items == goalN:
                 print "The path is: ",
                 for n in path+[items]:
                     print n.id,",",
-                    print n.id,
 
                 print "\nThe distance is: ", dist+vertex.adjacent[items]
+                pass
             else:
                 q.put((items,path+[items],dist+vertex.adjacent[items]))
 
 
 if __name__ == "__main__":
     ar = readfile("distance_matrix.txt")
-    print ar
+    # print ar
     make_node(ar)
     bfs(vertices,"arad", "bucharest")
 
