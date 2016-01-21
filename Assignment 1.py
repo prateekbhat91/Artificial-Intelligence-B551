@@ -1,3 +1,8 @@
+"""Search Methods to find the paths form source to destination"""
+
+"@authors = Prateek Bhat and Sanjana Agarwal"
+
+
 from collections import defaultdict
 import sys
 import Queue
@@ -48,55 +53,29 @@ def readfile(link):
     file.close()
     return dict
 
-"Breadth First search to find the paths from Start to Goal state"
+"Breadth First search"
 def bfs(vertices, start, goal):
     startN = vertices[start]
     goalN = vertices[goal]
     q = Queue.Queue()
-    # path = [startN]
     q.put((startN,[startN],0))
 
     while not q.empty():
         (vertex,path,dist) = q.get()
-        # raw_input()
-        # for items in vertex.adjacent.keys():
-        #     print items.id
-        # for items in path:
-        #     print items.id
         for items in list(set(vertex.adjacent.keys()) - set(path)):
-            # print items.id
-            path1 = path
             if items == goalN:
                 print "The path is: ",
-                for n in path1+[items]:
-                    print n.id,
+                for n in path+[items]:
+                    print n.id,",",
                 print "\nThe distance is: ", dist+vertex.adjacent[items]
-                # print path1+[items],dist+vertex.adjacent[items]
             else:
-                # raw_input()
-                # path1.append(items)
-                # print "item",items.id
-                # print "path",
-                # for items in path1:
-                #     print items.id,
-                # print "dist", dist+vertex.adjacent[items]
-                q.put((items,path1+[items],dist+vertex.adjacent[items]))
+                q.put((items,path+[items],dist+vertex.adjacent[items]))
 
 
 if __name__ == "__main__":
     ar = readfile("distance_matrix.txt")
     print ar
     make_node(ar)
-    # print "Enter Start and the Goal cities"
     bfs(vertices,"arad", "bucharest")
-    # for k in vertices.keys():
-    #     # print k
-    #     print vertices[k].id
-    #     for items in vertices[k].adjacent.keys():
-    #         raw_input()
-    #         print items.id, vertices[k].adjacent[items]
-    # arad = vertices["Arad"]
-    # for items in arad.adjacent.keys():
-    #     print items.id,arad.adjacent[items]
 
 
