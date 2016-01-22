@@ -69,20 +69,39 @@ def bfs(vertices, start, goal):
                 for n in path+[items]:
                     print n.id,",",
 
-                print "\nThe distance is: ", dist+vertex.adjacent[items]
-                pass
+                print "\nThe distance is: ",dist+vertex.adjacent[items]
+                return
             else:
                 q.put((items,path+[items],dist+vertex.adjacent[items]))
+
+"Depth First Search"
+
+def dfs(vertices, start, goal):
+    startN = vertices[start]
+    goalN = vertices[goal]
+    stack=[]
+    stack.append((startN,[startN],0))
+
+    while stack:
+        (vertex,path,dist) = stack.pop()
+        for items in list(set(vertex.adjacent.keys())-set(path)):
+            if items == goalN:
+                print "The path is: ",
+                for n in path+[items]:
+                    print n.id,",",
+
+                print "\nThe distance is: ",dist+vertex.adjacent[items]
+                return
+            else:
+                stack.append((items,path+[items],dist+vertex.adjacent[items]))
 
 
 if __name__ == "__main__":
     ar = readfile("distance_matrix.txt")
-    # print ar
     make_node(ar)
-    bfs(vertices,"arad", "bucharest")
+    bfs(vertices,"arad", "mehadia")
+    dfs(vertices,"arad", "mehadia")
 
-    # for items in arad.adjacent.keys():
-    #     print items.id,arad.adjacent[items]
 
 
 
