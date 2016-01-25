@@ -5,6 +5,7 @@
 from collections import defaultdict
 import sys
 import Queue
+import re
 
 vertices = {}
 
@@ -54,54 +55,85 @@ def readfile(link):
 
 "Breadth First search"
 def bfs(vertices, start, goal):
-    startN = vertices[start]
-    goalN = vertices[goal]
-    q = Queue.Queue()
-    q.put((startN,[startN],0))
+    try:
+        startN = vertices[start]
+        goalN = vertices[goal]
+        q = Queue.Queue()
+        q.put((startN,[startN],0))
 
-    while not q.empty():
-        (vertex,path,dist) = q.get()
-        # for items in path:
-        #     print items.id
-        for items in list(set(vertex.adjacent.keys()) - set(path)):
-            if items == goalN:
-                print "The path is: ",
-                for n in path+[items]:
-                    print n.id,",",
+        while not q.empty():
+            (vertex,path,dist) = q.get()
+            # for items in path:
+            #     print items.id
+            for items in list(set(vertex.adjacent.keys()) - set(path)):
+                if items == goalN:
+                    print "The path is: ",
+                    for n in path+[items]:
+                        print n.id,",",
 
-                print "\nThe distance is: ",dist+vertex.adjacent[items]
-                return
-            else:
-                q.put((items,path+[items],dist+vertex.adjacent[items]))
+                    print "\nThe distance is: ",dist+vertex.adjacent[items]
+                    return
+                else:
+                    q.put((items,path+[items],dist+vertex.adjacent[items]))
+        # print "No path found"
+    except:
+        print "Node not found"
+
 
 "Depth First Search"
 
 def dfs(vertices, start, goal):
-    startN = vertices[start]
-    goalN = vertices[goal]
-    stack=[]
-    stack.append((startN,[startN],0))
+    try:
+        startN = vertices[start]
+        goalN = vertices[goal]
+        stack=[]
+        stack.append((startN,[startN],0))
 
-    while stack:
-        (vertex,path,dist) = stack.pop()
-        for items in list(set(vertex.adjacent.keys())-set(path)):
-            if items == goalN:
-                print "The path is: ",
-                for n in path+[items]:
-                    print n.id,",",
+        while stack:
+            (vertex,path,dist) = stack.pop()
+            for items in list(set(vertex.adjacent.keys())-set(path)):
+                if items == goalN:
+                    print "The path is: ",
+                    for n in path+[items]:
+                        print n.id,",",
 
-                print "\nThe distance is: ",dist+vertex.adjacent[items]
-                return
-            else:
-                stack.append((items,path+[items],dist+vertex.adjacent[items]))
-
+                    print "\nThe distance is: ",dist+vertex.adjacent[items]
+                    return
+                else:
+                    stack.append((items,path+[items],dist+vertex.adjacent[items]))
+    except:
+        print "Node not found"
 
 if __name__ == "__main__":
     ar = readfile("distance_matrix.txt")
     make_node(ar)
-    bfs(vertices,"arad", "mehadia")
-    dfs(vertices,"arad", "mehadia")
 
+    print "Enter the input as comma separated."
+    print "\nFor example city1,city2,algo name(BFS, DFS, IDE)"
+    print "\nPrint \"exit\" to Exit the program"
+    while (1):
+        print "\nEnter new input."
+        tempstr = raw_input().lower()
+        pattern = re.compile("^\s+|\s*,\s*|\s+$")               #Find pattern of spaces before and after comma
+        temparr = [x for x in pattern.split(tempstr) if x]      #Remove spaces beofre a node name
 
+        if temparr[0] == "exit":                                #Check for exit condition
+                exit()
 
+        elif len(temparr) == 3:                                 #check if input is in right format
+                if temparr[2].lower() == "bfs":
+                    bfs(vertices, temparr[0], temparr[1])
+                    print "\n"
 
+                elif temparr[2].lower() == "dfs":
+                    dfs(vertices, temparr[0], temparr[1])
+                    print "\n"
+
+                elif temparr[2].lower() == "ide":
+                    # ideep(vertices, temparr[0], temparr[1])
+                    pass
+
+                else:
+                    print "Enter the Algo name as BFS, DFS, IDE. "
+        else:
+            print "Enter input in format \"City1,City2,Algo name(BFS, DFS, IDE)\". "
