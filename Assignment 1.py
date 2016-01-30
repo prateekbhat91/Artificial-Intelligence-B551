@@ -45,11 +45,12 @@ def make_node(dict):
 
 def readfile(link):
     dict = defaultdict(list)
+    # pattern = re.compile("^\s+|\s*,\s*|\s+$")               #Find pattern of spaces before and after comma
     file = open(link)
     for lines in file.readlines():
-        arr = lines.split()
-        # raw_input()
+        arr = lines.split(",")
         dict[arr[0].lower()].append((arr[1].lower(), int(arr[2])))
+        dict[arr[1].lower()].append((arr[0].lower(), int(arr[2])))
     file.close()
     return dict
 
@@ -104,6 +105,55 @@ def dfs(vertices, start, goal):
     except:
         print "Node not found"
 
+qide = Queue.Queue()
+totalpath = []
+"Iterative Deepning"
+def ide(vertices, start, goal):
+
+    try:
+        startN = vertices[start]
+        goalN = vertices[goal]
+        stack=[]                                    #Temporary stack just to pass it to function ideDFS()
+        qide.put((startN,[startN],0,0,2))           #2 = the intial depth i.e. k
+        while not qide.empty():
+            (vertex,path,dist,depth,k) = qide.get()
+            # print vertex.id
+            # print depth
+            # print k
+            # raw_input("inside ide")
+            for items in list(set(vertex.adjacent.keys()) - set(path)):
+                stack.append((items, path + [items], dist + vertex.adjacent[items], depth + 1,k))
+                found = ideDFS(stack,goalN)
+                stack=[]                            #Temporary stack cleared
+                if found ==0:
+                    break
+            if found==0:
+                break
+    except:
+        print "Node not found"
+
+
+def ideDFS(stackideep,goalN):
+    while stackideep:
+            (vertex,path,dist,depth,k) = stackideep.pop()
+            for items in list(set(vertex.adjacent.keys())-set(path)):
+                # print items.id
+                # raw_input("inside idedfs\n")
+                if items == goalN:
+                    print "The path is: ",
+                    for n in path+[items]:
+                        print n.id,",",
+
+                    print "\nThe distance is: ",dist+vertex.adjacent[items]
+                    return 0
+                elif depth+1 == k :
+                    qide.put((items,path+[items],dist+vertex.adjacent[items],depth+1,k+2))
+
+                else:
+                    stackideep.append((items,path+[items],dist+vertex.adjacent[items],depth+1,k))
+
+
+
 if __name__ == "__main__":
     ar = readfile("distance_matrix.txt")
     make_node(ar)
@@ -130,8 +180,8 @@ if __name__ == "__main__":
                     print "\n"
 
                 elif temparr[2].lower() == "ide":
-                    # ideep(vertices, temparr[0], temparr[1])
-                    pass
+                    ide(vertices, temparr[0], temparr[1])
+                    print "\n"
 
                 else:
                     print "Enter the Algo name as BFS, DFS, IDE. "
