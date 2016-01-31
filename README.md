@@ -6,9 +6,9 @@ Assignment 1: The goal of this programming assignment is to develop search metho
 
 If you want to run your own distance file, please ensure that the text file has comma separated values.  
 
-Some points about the input:
-1. If you want to give your own graph as an input. Enter "y" when the program asks and give the address of your file.
-2. The input map should be a comma separated file.
+Some points about the input:  
+1. If you want to give your own graph as an input. Enter "y" when the program asks and give the address of your file.  
+2. The input map should be a comma separated file.  
  
 Input format:  
 Do you want to read your own graph? (y/n)  
