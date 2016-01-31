@@ -142,6 +142,7 @@ def ide(vertices, start, goal):
             while not qide.empty():
                 (vertex, path, dist, depth, k) = qide.get()
                 # print "\nvertex id",vertex.id,
+                # print "\npath is in while",path,
                 # print depth
                 # print k
                 # raw_input("inside ide")
@@ -153,6 +154,7 @@ def ide(vertices, start, goal):
                     if found == 0:
                         break
                 if found == 0:
+                    qide.queue.clear()
                     break
         except:
             print "Node not found"
