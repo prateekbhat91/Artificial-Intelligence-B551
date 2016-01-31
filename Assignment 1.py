@@ -141,14 +141,13 @@ def ide(vertices, start, goal):
             qide.put((startN, [startN], 0, 0, 2))  # 2 = the intial depth i.e. k
             while not qide.empty():
                 (vertex, path, dist, depth, k) = qide.get()
-<<<<<<< HEAD
+
                 # print "\nvertex id",vertex.id,
                 # print "\npath is in while",path,
                 # print depth
                 # print k
                 # raw_input("inside ide")
-=======
->>>>>>> origin/master
+
                 for items in list(set(vertex.adjacent.keys()) - set(path)):
                     stack.append((items, path + [items], dist + vertex.adjacent[items], depth + 1, k))
                     found = ideDFS(stack, goalN)
