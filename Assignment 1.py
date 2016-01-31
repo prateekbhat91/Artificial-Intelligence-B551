@@ -187,8 +187,10 @@ def ideDFS(stackideep, goalN):
 if __name__ == "__main__":
     print "Do you want to read your own graph? (y/n)"
     userChoice = raw_input().lower()
-    userFileName = ""
+
     if userChoice == "y":
+        print "Enter the link link of the file to be loaded"
+        userFileName = raw_input()
         ar = readfile(userFileName)
     else:
         ar = readfile("distance_matrix.txt")
