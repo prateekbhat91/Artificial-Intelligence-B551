@@ -7,7 +7,7 @@ Assignment 1: The goal of this programming assignment is to develop search metho
 If you want to run your own distance file, a variable called "userFileName" has been declared. Please put in the file name of your text document.  
 
 Input format:  
-Do you want to read your own graph? (yes/no)  
+Do you want to read your own graph? (y/n)  
 **Example:** no  
 Enter a comma separated input. Like city1,city2,algorithm's name(bfs, dfs, ide)  
 Input "exit" to exit the program  
