@@ -158,32 +158,26 @@ if __name__ == "__main__":
     ar = readfile("distance_matrix.txt")
     make_node(ar)
 
-    print "Enter the input as comma separated."
-    print "\nFor example city1,city2,algo name(BFS, DFS, IDE)"
-    print "\nPrint \"exit\" to Exit the program"
+    print "Enter a comma separated input. Like city1,city2,algorithm's name(BFS, DFS, IDE)"
+    print "\nInput \"exit\" to exit the program"
     while (1):
         print "\nEnter new input."
         tempstr = raw_input().lower()
         pattern = re.compile("^\s+|\s*,\s*|\s+$")               #Find pattern of spaces before and after comma
         temparr = [x for x in pattern.split(tempstr) if x]      #Remove spaces beofre a node name
-
         if temparr[0] == "exit":                                #Check for exit condition
                 exit()
-
         elif len(temparr) == 3:                                 #check if input is in right format
                 if temparr[2].lower() == "bfs":
                     bfs(vertices, temparr[0], temparr[1])
                     print "\n"
-
                 elif temparr[2].lower() == "dfs":
                     dfs(vertices, temparr[0], temparr[1])
                     print "\n"
-
                 elif temparr[2].lower() == "ide":
                     ide(vertices, temparr[0], temparr[1])
                     print "\n"
-
                 else:
-                    print "Enter the Algo name as BFS, DFS, IDE. "
+                    print "Enter the algorithm's name as BFS, DFS, IDE. "
         else:
-            print "Enter input in format \"City1,City2,Algo name(BFS, DFS, IDE)\". "
+            print "Enter input in format \"city1,city2,algorithm's name(BFS, DFS, IDE)\". "
