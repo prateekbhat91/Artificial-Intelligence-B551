@@ -141,12 +141,7 @@ def ide(vertices, start, goal):
             qide.put((startN, [startN], 0, 0, 2))  # 2 = the intial depth i.e. k
             while not qide.empty():
                 (vertex, path, dist, depth, k) = qide.get()
-                # print "\nvertex id",vertex.id,
-                # print depth
-                # print k
-                # raw_input("inside ide")
                 for items in list(set(vertex.adjacent.keys()) - set(path)):
-                    print "\n",items.id," at depth", depth,
                     stack.append((items, path + [items], dist + vertex.adjacent[items], depth + 1, k))
                     found = ideDFS(stack, goalN)
                     stack = []  #Temporary stack cleared
@@ -161,7 +156,6 @@ def ide(vertices, start, goal):
 def ideDFS(stackideep, goalN):
     while stackideep:
         (vertex, path, dist, depth, k) = stackideep.pop()
-        # print "\nvertex here is:",vertex.id
         if vertex == goalN:
                 print "The path is:",
                 for n in path:
@@ -170,8 +164,6 @@ def ideDFS(stackideep, goalN):
                 return 0
         else:
             for items in list(set(vertex.adjacent.keys()) - set(path)):
-                # print "\nitems in ideDFS is:",items.id,
-                # raw_input("inside idedfs\n")
                 if items == goalN:
                     print "The path is:",
                     for n in path + [items]:
