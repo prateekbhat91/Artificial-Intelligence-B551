@@ -4,11 +4,11 @@ Repository for the assignments for Artificial Intelligence CSCI-B551
   
 Assignment 1: The goal of this programming assignment is to develop search methods - Breadth first, depth first and iterative deepening.  
 
-If you want to run your own distance file, a variable called "userFileName" has been declared. Please put in the file name of your text document.  
+If you want to run your own distance file, a variable called "userFileName" has been declared. Please put in the file name of your text document. Also, the text file should have comma separated values.  
 
 Input format:  
 Do you want to read your own graph? (y/n)  
-**Example:** no  
+**Example:** n  
 Enter a comma separated input. Like city1,city2,algorithm's name(bfs, dfs, ide)  
 Enter "EXIT" to exit the program at any time
 Enter new input.   
