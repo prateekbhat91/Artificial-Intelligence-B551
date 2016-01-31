@@ -141,12 +141,12 @@ def ide(vertices, start, goal):
             qide.put((startN, [startN], 0, 0, 2))  # 2 = the intial depth i.e. k
             while not qide.empty():
                 (vertex, path, dist, depth, k) = qide.get()
-                #print "\nvertex id",vertex.id,
+                # print "\nvertex id",vertex.id,
                 # print depth
                 # print k
                 # raw_input("inside ide")
                 for items in list(set(vertex.adjacent.keys()) - set(path)):
-                    #print "\n",items.id," at depth", depth,
+                    print "\n",items.id," at depth", depth,
                     stack.append((items, path + [items], dist + vertex.adjacent[items], depth + 1, k))
                     found = ideDFS(stack, goalN)
                     stack = []  #Temporary stack cleared
@@ -161,7 +161,7 @@ def ide(vertices, start, goal):
 def ideDFS(stackideep, goalN):
     while stackideep:
         (vertex, path, dist, depth, k) = stackideep.pop()
-        #print "\nvertex here is:",vertex.id
+        # print "\nvertex here is:",vertex.id
         if vertex == goalN:
                 print "The path is:",
                 for n in path:
@@ -170,7 +170,7 @@ def ideDFS(stackideep, goalN):
                 return 0
         else:
             for items in list(set(vertex.adjacent.keys()) - set(path)):
-                #print "\nitems in ideDFS is:",items.id,
+                # print "\nitems in ideDFS is:",items.id,
                 # raw_input("inside idedfs\n")
                 if items == goalN:
                     print "The path is:",
@@ -185,34 +185,40 @@ def ideDFS(stackideep, goalN):
 
 
 if __name__ == "__main__":
-    print "Do you want to read your own graph? (yes/no)"
+    print "Do you want to read your own graph? (y/n)"
     userChoice = raw_input().lower()
     userFileName = ""
-    if userChoice == "yes":
+    if userChoice == "y":
         ar = readfile(userFileName)
     else:
         ar = readfile("distance_matrix.txt")
     make_node(ar)
     print "Enter a comma separated input. Like city1,city2,algorithm's name(bfs, dfs, ide)"
-    print "Input \"exit\" to exit the program"
+    print "\nEnter \"EXIT\" to exit the program at any time"
     while (1):
         print "\nEnter new input."
         tempstr = raw_input().lower()
-        pattern = re.compile("^\s+|\s*,\s*|\s+$")  # Find pattern of spaces before and after comma
-        temparr = [x for x in pattern.split(tempstr) if x]  # Remove spaces before a node name
-        if temparr[0] == "exit":  # Check for exit condition
-            exit()
-        elif len(temparr) == 3:  # check if input is in right format
-            if temparr[2].lower() == "bfs":
-                bfs(vertices, temparr[0], temparr[1])
-                print "\n"
-            elif temparr[2].lower() == "dfs":
-                dfs(vertices, temparr[0], temparr[1])
-                print "\n"
-            elif temparr[2].lower() == "ide":
-                ide(vertices, temparr[0], temparr[1])
-                print "\n"
-            else:
-                print "Enter the algorithm's name as bfs, dfs, ide. "
+
+        if tempstr == "":
+            print "Please  enter required input"          #Will take care if user presses Enter without any input
+            pass
+
         else:
-            print "Enter input in format \"city1,city2,algorithm's name(bfs, dfs, ide)\". "
+            pattern = re.compile("^\s+|\s*,\s*|\s+$")  # Find pattern of spaces before and after comma
+            temparr = [x for x in pattern.split(tempstr) if x]  # Remove spaces before a node name
+            if temparr[0] == "exit":  # Check for exit condition
+                exit()
+            elif len(temparr) == 3:  # check if input is in right format
+                if temparr[2].lower() == "bfs":
+                    bfs(vertices, temparr[0], temparr[1])
+                    print "\n"
+                elif temparr[2].lower() == "dfs":
+                    dfs(vertices, temparr[0], temparr[1])
+                    print "\n"
+                elif temparr[2].lower() == "ide":
+                    ide(vertices, temparr[0], temparr[1])
+                    print "\n"
+                else:
+                    print "Enter the algorithm's name as bfs, dfs, ide. "
+            else:
+                print "Enter input in format \"city1,city2,algorithm's name(bfs, dfs, ide)\". "
