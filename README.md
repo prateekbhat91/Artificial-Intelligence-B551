@@ -10,7 +10,7 @@ Input format:
 Do you want to read your own graph? (y/n)  
 **Example:** no  
 Enter a comma separated input. Like city1,city2,algorithm's name(bfs, dfs, ide)  
-Input "exit" to exit the program  
+Enter "EXIT" to exit the program at any time
 Enter new input.   
 **Example:** arad,bucharest,bfs  
   
