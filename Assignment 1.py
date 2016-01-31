@@ -65,54 +65,62 @@ def readfile(link):
 
 
 def bfs(vertices, start, goal):
-    try:
-        startN = vertices[start]
-        goalN = vertices[goal]
-        q = Queue.Queue()
-        q.put((startN, [startN], 0))
+    if start == goal:
+        print "The path is:",start,",",start,
+        print "\nThe distance is: 0",
+    else:
+        try:
+            startN = vertices[start]
+            goalN = vertices[goal]
+            q = Queue.Queue()
+            q.put((startN, [startN], 0))
 
-        while not q.empty():
-            (vertex, path, dist) = q.get()
-            # for items in path:
-            #     print items.id
-            for items in list(set(vertex.adjacent.keys()) - set(path)):
-                if items == goalN:
-                    print "The path is:",
-                    for n in path + [items]:
-                        print n.id,",",
+            while not q.empty():
+                (vertex, path, dist) = q.get()
+                # for items in path:
+                #     print items.id
+                for items in list(set(vertex.adjacent.keys()) - set(path)):
+                    if items == goalN:
+                        print "The path is:",
+                        for n in path + [items]:
+                            print n.id,",",
 
-                    print "\nThe distance is:", dist + vertex.adjacent[items]
-                    return
-                else:
-                    q.put((items, path + [items], dist + vertex.adjacent[items]))
-                    # print "No path found"
-    except:
-        print "Node not found"
+                        print "\nThe distance is:", dist + vertex.adjacent[items]
+                        return
+                    else:
+                        q.put((items, path + [items], dist + vertex.adjacent[items]))
+                        # print "No path found"
+        except:
+            print "Node not found"
 
 
 "Depth First Search"
 
 
 def dfs(vertices, start, goal):
-    try:
-        startN = vertices[start]
-        goalN = vertices[goal]
-        stack = []
-        stack.append((startN, [startN], 0))
+    if start == goal:
+        print "The path is:",start,",",start,
+        print "\nThe distance is: 0",
+    else:
+        try:
+            startN = vertices[start]
+            goalN = vertices[goal]
+            stack = []
+            stack.append((startN, [startN], 0))
 
-        while stack:
-            (vertex, path, dist) = stack.pop()
-            for items in list(set(vertex.adjacent.keys()) - set(path)):
-                if items == goalN:
-                    print "The path is:",
-                    for n in path + [items]:
-                        print n.id,",",
-                    print "\nThe distance is:", dist + vertex.adjacent[items]
-                    return
-                else:
-                    stack.append((items, path + [items], dist + vertex.adjacent[items]))
-    except:
-        print "Node not found"
+            while stack:
+                (vertex, path, dist) = stack.pop()
+                for items in list(set(vertex.adjacent.keys()) - set(path)):
+                    if items == goalN:
+                        print "The path is:",
+                        for n in path + [items]:
+                            print n.id,",",
+                        print "\nThe distance is:", dist + vertex.adjacent[items]
+                        return
+                    else:
+                        stack.append((items, path + [items], dist + vertex.adjacent[items]))
+        except:
+            print "Node not found"
 
 
 qide = Queue.Queue()
@@ -121,59 +129,77 @@ totalpath = []
 
 
 def ide(vertices, start, goal):
-    try:
-        startN = vertices[start]
-        goalN = vertices[goal]
-        stack = []  # Temporary stack just to pass it to function ideDFS()
-        qide.put((startN, [startN], 0, 0, 2))  # 2 = the intial depth i.e. k
-        while not qide.empty():
-            (vertex, path, dist, depth, k) = qide.get()
-            # print vertex.id
-            # print depth
-            # print k
-            # raw_input("inside ide")
-            for items in list(set(vertex.adjacent.keys()) - set(path)):
-                stack.append((items, path + [items], dist + vertex.adjacent[items], depth + 1, k))
-                found = ideDFS(stack, goalN)
-                stack = []  # Temporary stack cleared
+    found = -1
+    if start == goal:
+        print "The path is:",start,",",start,
+        print "\nThe distance is: 0",
+    else:
+        try:
+            startN = vertices[start]
+            goalN = vertices[goal]
+            stack = []  # Temporary stack just to pass it to function ideDFS()
+            qide.put((startN, [startN], 0, 0, 2))  # 2 = the intial depth i.e. k
+            while not qide.empty():
+                (vertex, path, dist, depth, k) = qide.get()
+                #print "\nvertex id",vertex.id,
+                # print depth
+                # print k
+                # raw_input("inside ide")
+                for items in list(set(vertex.adjacent.keys()) - set(path)):
+                    #print "\n",items.id," at depth", depth,
+                    stack.append((items, path + [items], dist + vertex.adjacent[items], depth + 1, k))
+                    found = ideDFS(stack, goalN)
+                    stack = []  #Temporary stack cleared
+                    if found == 0:
+                        break
                 if found == 0:
                     break
-            if found == 0:
-                break
-    except:
-        print "Node not found"
+        except:
+            print "Node not found"
 
 
 def ideDFS(stackideep, goalN):
     while stackideep:
         (vertex, path, dist, depth, k) = stackideep.pop()
-        for items in list(set(vertex.adjacent.keys()) - set(path)):
-            # print items.id
-            # raw_input("inside idedfs\n")
-            if items == goalN:
+        #print "\nvertex here is:",vertex.id
+        if vertex == goalN:
                 print "The path is:",
-                for n in path + [items]:
+                for n in path:
                     print n.id, ",",
-
-                print "\nThe distance is:", dist + vertex.adjacent[items]
+                print "\nThe distance is:", dist
                 return 0
-            elif depth + 1 == k:
-                qide.put((items, path + [items], dist + vertex.adjacent[items], depth + 1, k + 2))
-
-            else:
-                stackideep.append((items, path + [items], dist + vertex.adjacent[items], depth + 1, k))
+        else:
+            for items in list(set(vertex.adjacent.keys()) - set(path)):
+                #print "\nitems in ideDFS is:",items.id,
+                # raw_input("inside idedfs\n")
+                if items == goalN:
+                    print "The path is:",
+                    for n in path + [items]:
+                        print n.id, ",",
+                    print "\nThe distance is:", dist + vertex.adjacent[items]
+                    return 0
+                elif depth + 1 == k:
+                    qide.put((items, path + [items], dist + vertex.adjacent[items], depth + 1, k + 2))
+                else:
+                    stackideep.append((items, path + [items], dist + vertex.adjacent[items], depth + 1, k))
 
 
 if __name__ == "__main__":
-    ar = readfile("distance_matrix.txt")
+    print "Do you want to read your own graph? (yes/no)"
+    userChoice = raw_input().lower()
+    userFileName = ""
+    if userChoice == "yes":
+        ar = readfile(userFileName)
+    else:
+        ar = readfile("distance_matrix.txt")
     make_node(ar)
     print "Enter a comma separated input. Like city1,city2,algorithm's name(bfs, dfs, ide)"
-    print "\nInput \"exit\" to exit the program"
+    print "Input \"exit\" to exit the program"
     while (1):
         print "\nEnter new input."
         tempstr = raw_input().lower()
         pattern = re.compile("^\s+|\s*,\s*|\s+$")  # Find pattern of spaces before and after comma
-        temparr = [x for x in pattern.split(tempstr) if x]  # Remove spaces beofre a node name
+        temparr = [x for x in pattern.split(tempstr) if x]  # Remove spaces before a node name
         if temparr[0] == "exit":  # Check for exit condition
             exit()
         elif len(temparr) == 3:  # check if input is in right format
